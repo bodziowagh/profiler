@@ -5,14 +5,17 @@ import { store } from "../redux/store";
 import { locales } from "../locale/index";
 import { addLocaleData } from "react-intl";
 import { Layout } from "./Layout";
+import { BrowserRouter } from "react-router-dom";
 
 // Locales
 addLocaleData(locales);
 
 export const App = () => (
     <Provider store={ store }>
-        <IntlProvider>
-            <Layout />
-        </IntlProvider>
+        <BrowserRouter>
+            <IntlProvider>
+                <Layout />
+            </IntlProvider>
+        </BrowserRouter>
     </Provider>
 );
