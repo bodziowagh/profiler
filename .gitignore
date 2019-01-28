@@ -1,0 +1,10 @@
+# OS and IDE rubbish
+.DS_Store
+.idea
+
+# build and test coverage folders
+dist
+coverage
+
+# Dependencies
+node_modules

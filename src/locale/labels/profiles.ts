@@ -1,0 +1,1 @@
+export const EXAMPLE_LABEL: "EXAMPLE_LABEL" = "EXAMPLE_LABEL";
