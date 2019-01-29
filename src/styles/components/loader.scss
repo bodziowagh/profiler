@@ -1,0 +1,70 @@
+$loader-size: 40px;
+$border-radius: 10%;
+$main-color: #2C8437;
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    border-radius: $border-radius;
+    background-color: darken($main-color, 10%);
+  }
+  50% {
+    opacity: 0.8;
+    border-radius: $border-radius + 10;
+    background-color: $main-color;
+  }
+  100% {
+    opacity: 1;
+    border-radius: $border-radius;
+    background-color: lighten($main-color, 10%);
+  }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(45deg); }
+  25% { transform: rotate(135deg); }
+  50% { transform: rotate(225deg); }
+  75% { transform: rotate(315deg); }
+  100% { transform: rotate(45deg); }
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-evenly;
+    animation: 4s ease-in-out rotate infinite;
+    animation-delay: 300ms;
+
+    width: $loader-size;
+    height: $loader-size;
+
+    transform: rotate(45deg);
+
+    .square {
+      width: $loader-size / 3 - ($loader-size * 0.03);
+      height: $loader-size / 3 - ($loader-size * 0.03);
+      border-radius: 10%;
+      background-color: $main-color;
+      animation: 1s ease pulse infinite;
+
+      @for $i from 1 through 9 {
+        &:nth-child(#{$i}) {
+          animation-delay: $i * 50ms;
+        }
+      }
+    }
+  }
+}
