@@ -33,6 +33,7 @@
       "allow-leading-underscore",
       "allow-pascal-case"
     ],
-    "member-access": [true, "no-public"]
+    "member-access": [true, "no-public"],
+    "no-empty-interface": false
   }
 }

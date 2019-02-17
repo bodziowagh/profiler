@@ -1,33 +1,55 @@
 import React from "react";
+import { useEffect } from "react";
 import { Loader } from "./components/Loader";
+import { connect } from "react-redux";
+import { bindActionCreators, Dispatch } from "redux";
+import { listProfilesRoutine } from "../../../redux/profiles/actions";
+import { compose } from "recompose";
 
-export interface ProfilesListProps {}
+export interface CustomProps {}
 
-export class List extends React.Component<ProfilesListProps, { loading: boolean }> {
-
-    state = {
-        loading: true
+interface DispatchProps {
+    actions: {
+        listProfiles: any;  // TODO: type
     };
+}
 
-    toggleLoading = () => {
-        this.setState({ loading: !this.state.loading });
-    }
+type InjectedProps = DispatchProps;
 
-    render() {
-        const { loading } = this.state;
+type ProfilesListProps = CustomProps & InjectedProps;
+
+function mapDispatchToProps(dispatch: Dispatch) {
+    return {
+        actions: bindActionCreators({
+            listProfiles: listProfilesRoutine.trigger
+        }, dispatch)
+    };
+}
+
+export const List = compose<ProfilesListProps, CustomProps>(
+    connect(
+        null,
+        mapDispatchToProps
+    ))(({
+       actions: { listProfiles }
+    }) => {
+
+        useEffect(() => {
+            listProfiles();
+        }, []);
 
         return (
             <div>
                 List
 
-                <button onClick={ this.toggleLoading }>toggle</button>
+                <button>toggle</button>
 
                 <div>
-                    <Loader loading={ loading } >
+                    <Loader loading={ true } >
                         <div>Loaded!</div>
                     </Loader>
                 </div>
             </div>
         );
     }
-}
+);
