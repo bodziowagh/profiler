@@ -6,6 +6,7 @@ const distPath = path.resolve(__dirname, "dist");
 module.exports = {
     mode: "production",
     entry: "./src/index.tsx",
+    devtool: "source-map",
     module: {
         rules: [{
             test: /\.tsx?$/,

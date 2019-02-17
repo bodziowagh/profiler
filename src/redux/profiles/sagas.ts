@@ -1,8 +1,9 @@
-import { all, takeLatest } from "@redux-saga/core/effects";
+import { all, takeLatest, put } from "@redux-saga/core/effects";
 import {
     createProfileRoutine, deleteProfileRoutine, getProfileRoutine, listProfilesRoutine,
     updateProfileRoutine
 } from "./actions";
+import { Api } from "../../script/services/repository";
 
 // List Profiles
 function *listProfilesWatcher() {
@@ -10,8 +11,11 @@ function *listProfilesWatcher() {
 }
 
 function *listProfiles() {
-    console.log("TODO: listProfiles - Implement me!");
-    yield false;
+    yield put(listProfilesRoutine.request());
+
+    const response = yield Api.profiles.listProfiles();
+
+    yield put(listProfilesRoutine.success(response));
 }
 
 // Get Profile
