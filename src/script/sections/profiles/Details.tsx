@@ -2,13 +2,10 @@ import React from "react";
 
 export interface ProfileDetailsProps {}
 
-export class Details extends React.Component<ProfileDetailsProps, {}> {
-
-    public render() {
-        return (
-            <div>
-                Details
-            </div>
-        );
-    }
-}
+export const Details: React.FunctionComponent<ProfileDetailsProps> = () => {
+    return (
+        <div>
+            Details
+        </div>
+    );
+};

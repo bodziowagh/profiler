@@ -7,6 +7,7 @@ import { listProfilesRoutine } from "../../../redux/profiles/actions";
 import { compose } from "recompose";
 import { StateShape } from "../../../redux/store";
 import { ProfilesStateShape } from "../../../redux/profiles/reducer";
+import { LineItem } from "./ListItem";
 
 export interface CustomProps {}
 
@@ -52,24 +53,12 @@ export const List = compose<ProfilesListProps, CustomProps>(
         }, []);
 
         return (
-            <div>
-                List
-
-                <button>toggle</button>
-
-                <div>
-                    <Loader loading={ loading } >
-                        <div>
-                            {
-                                items.map((item) => (
-                                    <div>
-                                        { item.name }
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </Loader>
-                </div>
+            <div className="profile-list">
+                <Loader loading={ loading } >
+                    {
+                        items.map((item) => <LineItem item={ item } />)
+                    }
+                </Loader>
             </div>
         );
     }
