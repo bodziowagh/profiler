@@ -1,8 +1,6 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Loader } from "./components/Loader";
 import { connect } from "react-redux";
-import { bindActionCreators, Dispatch } from "redux";
 import { listProfilesRoutine } from "../../../redux/profiles/actions";
 import { compose } from "recompose";
 import { StateShape } from "../../../redux/store";
@@ -12,9 +10,7 @@ import { LineItem } from "./ListItem";
 export interface CustomProps {}
 
 interface DispatchProps {
-    actions: {
-        listProfiles: any;  // TODO: type
-    };
+    listProfiles: typeof listProfilesRoutine;
 }
 
 interface StateProps {
@@ -25,15 +21,11 @@ type InjectedProps = StateProps & DispatchProps;
 
 type ProfilesListProps = CustomProps & InjectedProps;
 
-function mapDispatchToProps(dispatch: Dispatch) {
-    return {
-        actions: bindActionCreators({
-            listProfiles: listProfilesRoutine.trigger
-        }, dispatch)
-    };
-}
+const actionCreators: DispatchProps = {
+    listProfiles: listProfilesRoutine.trigger
+};
 
-function mapStateToProps(state: StateShape, props: CustomProps): StateProps {
+function mapStateToProps(state: StateShape): StateProps {
     return {
         profiles: state.profiles
     };
@@ -42,9 +34,9 @@ function mapStateToProps(state: StateShape, props: CustomProps): StateProps {
 export const List = compose<ProfilesListProps, CustomProps>(
     connect(
         mapStateToProps,
-        mapDispatchToProps
+        actionCreators
     ))(({
-        actions: { listProfiles },
+        listProfiles,
         profiles: { loading, items = [] }
     }) => {
 
